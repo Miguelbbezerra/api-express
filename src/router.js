@@ -8,7 +8,7 @@ import { ListarPacienteController } from './controllers/paciente/ListarPacienteC
 import { ListarAgendamentoController } from './controllers/agendamento/ListarAgendamentosController.js'
 import { ListarAnamneseController } from './controllers/anamnese/ListarAnamneseController.js'
 
-import { UpdatePodologoController } from './controllers/podologo/UpdatePodologController.js'
+import { UpdatePodologoController } from './controllers/podologo/UpdatePodologoController.js'
 import { UpdatePacienteController } from './controllers/paciente/UpdatePacienteController.js'
 import { UpdateAnamneseController } from './controllers/anamnese/UpdateAnamneseController.js'
 import { UpdateAgendamentoController } from './controllers/agendamento/UpdateAgendamentoController.js'

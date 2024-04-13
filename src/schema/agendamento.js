@@ -1,7 +1,7 @@
 import { EntitySchema } from "typeorm";
 
-export const AgendamentoSchema = new  EntitySchema({
-    name: 'Agendamento',
+export const AgendamentoSchema = new EntitySchema({
+  name: 'Agendamento',
   tableName: 'agendamento',
   columns: {
     id: {

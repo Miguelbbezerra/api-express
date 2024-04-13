@@ -10,10 +10,10 @@ export class UpdatePacienteController {
             const result = await pacienteRepository.update(id, { ...body })
 
             if (result?.affected === 1) {
-                const podologo = await pacienteRepository.find(id)
-                return res.status(201).json(podologo)
+                const paciente = await pacienteRepository.find(id)
+                return res.status(201).json(paciente)
             } else {
-                return res.status(400).json({ message: "Erro ao autalizar Podologo" })
+                return res.status(400).json({ message: "Erro ao autalizar Paciente" })
             }
         } catch (error) {
             res.status(500).json({ message: error.message })
