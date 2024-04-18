@@ -4,8 +4,13 @@ import { PodologoSchema } from "../../schema/podologo.js";
 export class ListarPodologoController {
     async list(req, res) {
         try {
+            const queryParams = req.query
             const podologoRepository = AppDataSource.getRepository(PodologoSchema)
-            const podologos = await podologoRepository.find()
+            const podologos = await podologoRepository.find({
+                where: {
+                    ...queryParams
+                }
+            })
 
             return res.json(podologos)
         } catch (error) {

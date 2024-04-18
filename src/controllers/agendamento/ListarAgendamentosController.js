@@ -29,6 +29,7 @@ import { AgendamentoSchema } from "../../schema/agendamento.js";
 export class ListarAgendamentoController {
     async list(req, res) {
         try {
+            const queryParams = req.query
             const agendamentoRepository = AppDataSource.getRepository(AgendamentoSchema);
             const agendamentos = await agendamentoRepository.createQueryBuilder('agendamento')
                 .leftJoinAndSelect('agendamento.paciente', 'paciente')
