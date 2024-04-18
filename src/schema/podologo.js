@@ -25,18 +25,21 @@ export const PodologoSchema = new EntitySchema({
       type: "varchar",
       length: 255,
       default: null,
+      unique: true
     },
     email: {
       name: "email",
       type: "varchar",
       length: 255,
       default: null,
+      unique: true
     },
     telefone: {
       name: "telefone",
       type: "varchar",
       length: 15,
       default: null,
+      unique: true
     },
     dataNascimento: {
       name: "data_nascimento",

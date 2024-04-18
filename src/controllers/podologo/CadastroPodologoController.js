@@ -7,7 +7,7 @@ export class CadastroPodologoController {
         try {
             const body = req.body
             const salt = 12
-            const hashPassword = bcrypt.hash(body.senha, salt)
+            const hashPassword = await bcrypt.hash(body.senha, salt)
             const podologoDto = {
                 senha: hashPassword,
                 nomeCompleto: req.body.nomeCompleto,

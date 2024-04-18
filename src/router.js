@@ -12,29 +12,54 @@ import { UpdatePodologoController } from './controllers/podologo/UpdatePodologoC
 import { UpdatePacienteController } from './controllers/paciente/UpdatePacienteController.js'
 import { UpdateAnamneseController } from './controllers/anamnese/UpdateAnamneseController.js'
 import { UpdateAgendamentoController } from './controllers/agendamento/UpdateAgendamentoController.js'
+import { LoginPodologoController } from './controllers/login/loginPodologo.js'
 
+import jwt from "jsonwebtoken"
 
 export const router = (express) => {
 
     const router = express.Router()
-    
+
+    //LOGIN
+    router.post("/login", (req, res) => {
+        const loginPodologoController = new LoginPodologoController()
+
+        return loginPodologoController.login(req, res)
+    })
+    //LOGIN
+
+    const auth = (req, res, next) => {
+        try {
+            if (!req.headers['authorization']) {
+                return res.status(401).json({ message: "Usuário não possui token" })
+            }
+            const token = req.headers['authorization']
+            const rawToken = token.replace("Bearer ", "")
+            const result = jwt.verify(rawToken, 'secret')
+            console.log(result)
+            next()
+        } catch (error) {
+            return res.status(401).json({ message: error.message })
+        }
+    }
+
     // podologo
     //CADASTRAR
-    router.post('/podologo', (req, res) => {
+    router.post('/podologo', auth, (req, res) => {
 
         const cadastroPodologoController = new CadastroPodologoController()
 
         return cadastroPodologoController.store(req, res)
     })
     //LISTAR
-    router.get('/podologo', (req, res) => {
+    router.get('/podologo', auth, (req, res) => {
 
         const listarPodologoController = new ListarPodologoController()
 
         return listarPodologoController.list(req, res)
     })
     //UPDATE
-    router.put('/podologo/:id', (req, res) => {
+    router.put('/podologo/:id', auth, (req, res) => {
 
         const updatePodologoController = new UpdatePodologoController()
 
@@ -46,20 +71,20 @@ export const router = (express) => {
 
     //paciente
     //CADASTRAR
-    router.post('/paciente', (req, res) => {
+    router.post('/paciente', auth, (req, res) => {
         const cadastroPacienteController = new CadastroPacienteController()
 
         return cadastroPacienteController.store(req, res)
     })
     //LISTAR
-    router.get('/paciente', (req, res) => {
+    router.get('/paciente', auth, (req, res) => {
 
         const listarPacienteController = new ListarPacienteController()
 
         return listarPacienteController.list(req, res)
     })
     //UPDATE
-    router.put('/paciente/:id', (req, res) => {
+    router.put('/paciente/:id', auth, (req, res) => {
 
         const updatePacienteController = new UpdatePacienteController()
 
@@ -71,20 +96,20 @@ export const router = (express) => {
 
     //agendamento
     //CADASTRAR
-    router.post('/agendamento', (req, res) => {
+    router.post('/agendamento', auth, (req, res) => {
         const cadastroAgendamentoController = new CadastroAgendamentoController()
 
         return cadastroAgendamentoController.store(req, res)
     })
     //LISTAR
-    router.get('/agendamento', (req, res) => {
+    router.get('/agendamento', auth, (req, res) => {
 
         const listarAgendamentoController = new ListarAgendamentoController()
 
         return listarAgendamentoController.list(req, res)
     })
     //UPDATE
-    router.put('/agendamento/:id', (req, res) => {
+    router.put('/agendamento/:id', auth, (req, res) => {
 
         const updateAgendamentoController = new UpdateAgendamentoController()
 
@@ -96,26 +121,28 @@ export const router = (express) => {
 
     //anamnese
     //CADASTRAR
-    router.post('/anamnese', (req, res) => {
+    router.post('/anamnese', auth, (req, res) => {
         const cadastroAnamneseController = new CadastroAnamneseController()
 
         return cadastroAnamneseController.store(req, res)
     })
     //LISTAR
-    router.get('/anamnese', (req, res) => {
+    router.get('/anamnese/:id', auth, (req, res) => {
 
         const listarAnamneseController = new ListarAnamneseController()
 
         return listarAnamneseController.list(req, res)
     })
     //UPDATE
-    router.put('/anamnese/:id', (req, res) => {
+    router.put('/anamnese/:id', auth, (req, res) => {
 
         const updateAnamneseController = new UpdateAnamneseController()
 
         return updateAnamneseController.update(req, res)
     })
     //anamnese
+
+
 
     return router
 

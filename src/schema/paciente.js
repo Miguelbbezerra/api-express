@@ -18,16 +18,19 @@ export const PacienteSchema = new EntitySchema({
             type: String,
             length: 11,
             nullable: false,
+            unique: true
         },
         email: {
             type: String,
             length: 100,
             nullable: false,
+            unique: true
         },
         telefone: {
             type: String,
             length: 100,
             nullable: false,
+            unique: true
         },
         dataNascimento: {
             type: "date",
