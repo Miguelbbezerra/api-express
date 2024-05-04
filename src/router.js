@@ -127,7 +127,7 @@ export const router = (express) => {
         return cadastroAnamneseController.store(req, res)
     })
     //LISTAR
-    router.get('/anamnese/:id', auth, (req, res) => {
+    router.get('/anamnese/', auth, (req, res) => {
 
         const listarAnamneseController = new ListarAnamneseController()
 

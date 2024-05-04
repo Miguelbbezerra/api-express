@@ -4,9 +4,15 @@ import { AnamneseSchema } from "../../schema/anamnese.js";
 export class ListarAnamneseController {
     async list(req, res) {
         try {
-            const id = req.params.id
+            // const id = req.params.id
+            const queryParams = req.query
             const anamneseRepository = AppDataSource.getRepository(AnamneseSchema)
-            const anamneses = await anamneseRepository.find(id)
+            const anamneses = await anamneseRepository.find({
+                relations: ['paciente', 'podologo'],
+                where: {
+                    ...queryParams
+                }
+            })
 
             return res.json(anamneses)
         } catch (error) {

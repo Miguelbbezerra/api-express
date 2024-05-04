@@ -234,7 +234,7 @@ export const AnamneseSchema = new EntitySchema({
         },
         agendamento: {
             target: 'Agendamento',
-            type: 'many-to-one',
+            type: 'one-to-one',
             createForeignKeyConstraints: false,
             joinTable: true,
             cascade: true,

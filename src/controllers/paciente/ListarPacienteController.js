@@ -6,7 +6,11 @@ export class ListarPacienteController {
         try {
             const queryParams = req.query
             const pacienteRepository = AppDataSource.getRepository(PacienteSchema)
-            const pacientes = await pacienteRepository.find()
+            const pacientes = await pacienteRepository.find({
+                where: {
+                    ...queryParams
+                }
+            })
 
             return res.json(pacientes)
         } catch (error) {
