@@ -205,7 +205,12 @@ export const AnamneseSchema = new EntitySchema({
         idade: {
             name: 'idade',
             type: 'int',
-        }
+        },
+        ativo: {
+            type: "int",
+            default: 1,
+            nullable: false,
+        },
     },
     relations: {
         paciente: {

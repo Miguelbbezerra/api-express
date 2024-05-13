@@ -58,6 +58,12 @@ export const PodologoSchema = new EntitySchema({
       length: 255,
       default: null,
     },
+    ativo: {
+        type: "int",
+        default: 1,
+        nullable: false,
+    },
+    
   },
   relations: {
     agendamentos: {

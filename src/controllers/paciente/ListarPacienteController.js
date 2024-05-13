@@ -8,7 +8,8 @@ export class ListarPacienteController {
             const pacienteRepository = AppDataSource.getRepository(PacienteSchema)
             const pacientes = await pacienteRepository.find({
                 where: {
-                    ...queryParams
+                    ...queryParams,
+                    ativo: 1
                 }
             })
 

@@ -15,6 +15,10 @@ import { UpdateAgendamentoController } from './controllers/agendamento/UpdateAge
 import { LoginPodologoController } from './controllers/login/loginPodologo.js'
 
 import jwt from "jsonwebtoken"
+import { DeletePacienteController } from './controllers/paciente/DeletePacienteController.js'
+import { DeleteAnamneseController } from './controllers/anamnese/DeleteAnamneseController.js'
+import { DeleteAgendamentoController } from './controllers/agendamento/DeleteAgendamentoController.js'
+import { DeletePodologoController } from './controllers/podologo/DeletePodologoController.js'
 
 export const router = (express) => {
 
@@ -65,6 +69,13 @@ export const router = (express) => {
 
         return updatePodologoController.update(req, res)
     })
+    //DELETE
+    router.put('/podologo/delete/:id', auth, (req, res) => {
+
+        const deletePodologoController = new DeletePodologoController()
+
+        return deletePodologoController.delete(req, res)
+    })
     // podologo
 
     // -------------------------------------------------
@@ -89,6 +100,13 @@ export const router = (express) => {
         const updatePacienteController = new UpdatePacienteController()
 
         return updatePacienteController.update(req, res)
+    })
+    //DELETE
+    router.put('/paciente/delete/:id', auth, (req, res) => {
+
+        const deletePacienteController = new DeletePacienteController()
+
+        return deletePacienteController.delete(req, res)
     })
     //paciente
 
@@ -115,6 +133,13 @@ export const router = (express) => {
 
         return updateAgendamentoController.update(req, res)
     })
+    //DELETE
+    router.put('/agendamento/delete/:id', auth, (req, res) => {
+
+        const deleteAgendamentoController = new DeleteAgendamentoController()
+
+        return deleteAgendamentoController.delete(req, res)
+    })
     //agendamento
 
     // -------------------------------------------------
@@ -139,6 +164,13 @@ export const router = (express) => {
         const updateAnamneseController = new UpdateAnamneseController()
 
         return updateAnamneseController.update(req, res)
+    })
+    //DELETE
+    router.put('/anamnese/delete/:id', auth, (req, res) => {
+
+        const deleteAnamneseController = new DeleteAnamneseController()
+
+        return deleteAnamneseController.delete(req, res)
     })
     //anamnese
 

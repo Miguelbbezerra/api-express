@@ -45,6 +45,11 @@ export const PacienteSchema = new EntitySchema({
             type: "text",
             nullable: false,
         },
+        ativo: {
+            type: "int",
+            default: 1,
+            nullable: false,
+        },
     },
     relations: {
         agendamentos: {
