@@ -1,18 +1,32 @@
 import { AppDataSource } from "../../app-data-source.js"
 import { PacienteSchema } from "../../schema/paciente.js"
+import { Validator } from "../../validator/validator.js"
 
 export class CadastroPacienteController {
     async store(req, res) {
         try{
             const body = req.body
+            
+            if (!Validator.validateCPF(body.cpf)) {
+                return res.status(400).json({ message: "CPF inválido" })
+            }
+            
+            if (!Validator.validateEmail(body.email)) {
+                return res.status(400).json({ message: "EMAIL inválido" })
+            }
+            
+            if (!Validator.validatePhoneNumber(body.telefone)) {
+                return res.status(400).json({ message: "TELEFONE inválido" })
+            }
+            
             const pacienteDto = {
-                nome: req.body.nome,
-                cpf: req.body.cpf,
-                email: req.body.email,
-                telefone: req.body.telefone,
-                dataNascimento: req.body.dataNascimento,
-                genero: req.body.genero,
-                endereco: req.body.endereco
+                nome: body.nome,
+                cpf: body.cpf,
+                email: body.email,
+                telefone: body.telefone,
+                dataNascimento: body.dataNascimento,
+                genero: body.genero,
+                endereco: body.endereco
             }
             const pacienteRepository = AppDataSource.getRepository(PacienteSchema)
             const result = await pacienteRepository.save(pacienteDto)

@@ -8,10 +8,10 @@ import { AgendamentoSchema } from './schema/agendamento.js'
 
 export const AppDataSource = new DataSource({
     type: 'mysql',
-    host: 'localhost',
+    host: '192.168.23.9',
     port: 3306,
-    username: 'root',
-    password: 'admin',
+    username: 'carlosmiguel',
+    password: 'senac123',
     database: 'sistema_podologia',
     synchronize: true,
     metadataTableName: 'meta_data_custom',

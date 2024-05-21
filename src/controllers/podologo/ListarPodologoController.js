@@ -8,7 +8,8 @@ export class ListarPodologoController {
             const podologoRepository = AppDataSource.getRepository(PodologoSchema)
             const podologos = await podologoRepository.find({
                 where: {
-                    ...queryParams
+                    ...queryParams,
+                    ativo: 1
                 }
             })
 

@@ -10,7 +10,8 @@ export class ListarAnamneseController {
             const anamneses = await anamneseRepository.find({
                 relations: ['paciente', 'podologo'],
                 where: {
-                    ...queryParams
+                    ...queryParams,
+                    ativo: 1
                 }
             })
 

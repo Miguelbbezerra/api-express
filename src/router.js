@@ -12,6 +12,7 @@ import { UpdatePodologoController } from './controllers/podologo/UpdatePodologoC
 import { UpdatePacienteController } from './controllers/paciente/UpdatePacienteController.js'
 import { UpdateAnamneseController } from './controllers/anamnese/UpdateAnamneseController.js'
 import { UpdateAgendamentoController } from './controllers/agendamento/UpdateAgendamentoController.js'
+
 import { LoginPodologoController } from './controllers/login/loginPodologo.js'
 
 import jwt from "jsonwebtoken"
@@ -174,7 +175,20 @@ export const router = (express) => {
     })
     //anamnese
 
-
+    router.post('/api/validate-token', (req, res) => {
+        const token = req.body.token;
+      
+        if (!token) {
+          return res.status(400).json({ valid: false, message: 'Token is required' });
+        }
+      
+        try {
+          const decoded = jwt.verify(token, 'secret'); // Use seu segredo JWT real aqui
+          return res.json({ valid: true, decoded });
+        } catch (err) {
+          return res.status(401).json({ valid: false, message: 'Invalid token' });
+        }
+      });
 
     return router
 

@@ -13,6 +13,7 @@ export class ListarAgendamentoController {
                 .leftJoinAndSelect("agendamento.paciente", "paciente") 
                 .leftJoinAndSelect("agendamento.podologo", "podologo") 
                 .where(queryParams)
+                .where("agendamento.ativo = 1")
                 .getMany(); 
 
             // Consulta as fichas de anamnese separadamente
