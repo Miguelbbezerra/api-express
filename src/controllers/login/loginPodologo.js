@@ -11,7 +11,8 @@ export class LoginPodologoController {
             const podologoRepository = AppDataSource.getRepository(PodologoSchema)
             const podologo = await podologoRepository.findOne({
                 where: {
-                    email: body.email
+                    email: body.email,
+                    ativo: 1
                 }
             })
             const resultCompare = await bcrypt.compare(body.senha, podologo.senha)
