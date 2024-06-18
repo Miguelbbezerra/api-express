@@ -5,16 +5,48 @@ import { AnamneseSchema } from "../../schema/anamnese.js";
 export class ListarAgendamentoController {
     async list(req, res) {
         try {
-            const queryParams = req.query;
+            const paciente = req.query.paciente;
+            const podologo = req.query.podologo;
+            const dataHora = req.query.dataHora;
+            
+            // const { paciente, podologo, dataHora } = req.query
 
             // Consulta os agendamentos
             const agendamentoRepository = AppDataSource.getRepository(AgendamentoSchema);
-            const agendamentos = await agendamentoRepository.createQueryBuilder("agendamento")
-                .leftJoinAndSelect("agendamento.paciente", "paciente") 
-                .leftJoinAndSelect("agendamento.podologo", "podologo") 
-                .where(queryParams)
+            let queryBuilderAgendamentos = agendamentoRepository.createQueryBuilder("agendamento")
+                .leftJoinAndSelect("agendamento.paciente", "paciente")
+                .leftJoinAndSelect("agendamento.podologo", "podologo")
+                // .where(queryParams)
                 .where("agendamento.ativo = 1")
-                .getMany(); 
+            // .getMany(); 
+
+            if (paciente) {
+                queryBuilderAgendamentos = queryBuilderAgendamentos.andWhere("paciente.nome_completo = :paciente", { paciente: paciente });
+            }
+            if (podologo) {
+                queryBuilderAgendamentos = queryBuilderAgendamentos.andWhere("podologo.nome_completo = :podologo", { podologo: podologo });
+            }
+            if (dataHora) {
+                // Divida dataHora em data e hora, se necessário
+                const [data, hora] = dataHora.split(' ');
+
+                if (data && !hora) {
+                    // Apenas data fornecida
+                    const decodedData = decodeURIComponent(data);
+                    queryBuilderAgendamentos.andWhere("agendamento.data_hora LIKE :dataHora", { dataHora: `%${decodedData}%` });
+                } else if (hora && !data) {
+                    // Apenas hora fornecida
+                    const decodedHora = decodeURIComponent(hora);
+                    queryBuilderAgendamentos.andWhere("agendamento.data_hora LIKE :dataHora", { dataHora: `%${decodedHora}%` });
+                } else {
+                    // Ambos data e hora fornecidos
+                    const decodedHora = decodeURIComponent(hora);
+                    const decodedData = decodeURIComponent(data);
+                    queryBuilderAgendamentos.andWhere("agendamento.data_hora LIKE :dataHora", { dataHora: `%${decodedData} ${decodedHora}%` });
+                }
+            }
+
+            const agendamentos = await queryBuilderAgendamentos.getMany()
 
             // Consulta as fichas de anamnese separadamente
             const anamneseRepository = AppDataSource.getRepository(AnamneseSchema);

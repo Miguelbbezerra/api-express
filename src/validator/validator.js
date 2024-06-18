@@ -1,4 +1,29 @@
+import dayjs from "dayjs";
+
 export class Validator {
+    static validateData(data) {
+        const inputDate = dayjs(data);
+        const today = dayjs();
+        const maxAge = 110;
+        const earliestValidDate = today.subtract(maxAge, 'year');
+    
+        // Verifica se a data não ultrapassa o dia de hoje e se não é anterior à data mínima permitida
+        return inputDate.isBefore(today, 'day') && inputDate.isAfter(earliestValidDate, 'day');
+    }
+
+    static validadeDataHoraAgendamento(dataHora){
+        const inputDataHora = dayjs(dataHora)
+        const today = dayjs()
+        const now = dayjs('HH:mm:ss')
+
+        return inputDataHora.isAfter(today, 'day') && inputDataHora.isAfter(now, 'minute')
+    }
+
+    static validateVazio(valor) {
+        // Verifica se o valor é nulo, indefinido ou uma string vazia (após remover espaços em branco)
+        return valor === null || valor === undefined || valor === '';
+    }
+    
     static validateEmail(email) {
         // Expressão regular para validar o formato do email
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -7,7 +32,7 @@ export class Validator {
 
     static validatePhoneNumber(phoneNumber) {
         // Expressão regular para validar o formato do número de telefone
-        const phoneRegex = /^\d{10,}$/;
+        const phoneRegex = /^(\(\d{2}\))\s\d{5}-\d{4}$/;
         return phoneRegex.test(phoneNumber);
     }
 

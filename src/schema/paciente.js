@@ -9,14 +9,14 @@ export const PacienteSchema = new EntitySchema({
             primary: true,
             generated: true,
         },
-        nome: {
+        nomeCompleto: {
             type: String,
             length: 100,
             nullable: false,
         },
         cpf: {
             type: String,
-            length: 11,
+            length: 14,
             nullable: false,
             unique: true
         },
@@ -41,9 +41,35 @@ export const PacienteSchema = new EntitySchema({
             length: 100,
             nullable: false,
         },
-        endereco: {
-            type: "text",
-            nullable: false,
+        cep: {
+            name: "cep",
+            type: "varchar",
+            length: 10,
+            default: null,
+        },
+        rua: {
+            name: "rua",
+            type: "varchar",
+            length: 255,
+            default: null,
+        },
+        numero: {
+            name: "numero",
+            type: "varchar",
+            length: 255,
+            default: null,
+        },
+        bairro: {
+            name: "bairro",
+            type: "varchar",
+            length: 255,
+            default: null,
+        },
+        cidade: {
+            name: "cidade",
+            type: "varchar",
+            length: 255,
+            default: null,
         },
         ativo: {
             type: "int",

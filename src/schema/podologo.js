@@ -52,8 +52,32 @@ export const PodologoSchema = new EntitySchema({
       length: 20,
       default: null,
     },
-    endereco: {
-      name: "endereco",
+    cep: {
+      name: "cep",
+      type: "varchar",
+      length: 10,
+      default: null,
+    },
+    rua: {
+      name: "rua",
+      type: "varchar",
+      length: 255,
+      default: null,
+    },
+    numero: {
+      name: "numero",
+      type: "varchar",
+      length: 255,
+      default: null,
+    },
+    bairro: {
+      name: "bairro",
+      type: "varchar",
+      length: 255,
+      default: null,
+    },
+    cidade: {
+      name: "cidade",
       type: "varchar",
       length: 255,
       default: null,
