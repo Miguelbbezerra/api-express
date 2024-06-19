@@ -8,11 +8,11 @@ import { AgendamentoSchema } from './schema/agendamento.js'
 
 export const AppDataSource = new DataSource({
     type: 'mysql',
-    host: 'pi-senac-db.mysql.database.azure.com',
-    port: 3306,
-    username: 'carlosmiguel',
-    password: 'CarlosMiguel053-',
-    database: 'sistema_podologia',
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
     synchronize: true,
     metadataTableName: 'meta_data_custom',
     relationLoadStrategy: 'join',
