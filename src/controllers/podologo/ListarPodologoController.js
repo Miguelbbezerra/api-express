@@ -6,8 +6,9 @@ export class ListarPodologoController {
     async list(req, res) {
         try {
             const queryParams = req.query;
+            const email = req.query.email
             const podologoRepository = AppDataSource.getRepository(PodologoSchema);
-            
+
             // Criando um novo objeto para mapear as queryParams e aplicar o operador LIKE onde necessário
             const whereClause = {};
             for (const key in queryParams) {
@@ -16,6 +17,9 @@ export class ListarPodologoController {
 
             // Adicionando a condição ativo: 1 ao objeto whereClause
             whereClause['ativo'] = 1;
+            if (email) {
+                whereClause['email'] = email;
+            }
 
             const podologos = await podologoRepository.find({
                 where: whereClause
