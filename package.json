@@ -1,7 +1,7 @@
 {
   "name": "projetoexpress",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./dist/index_bundle.js",
   "license": "MIT",
   "type": "module",
   "scripts": {
