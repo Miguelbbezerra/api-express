@@ -8,24 +8,26 @@ export class UpdatePodologoController {
             const id = req.params?.id
             const body = req.body
 
-            if (Validator.validateVazio(body.nomeCompleto) || Validator.validateVazio(body.genero) || Validator.validateVazio(body.cidade) || Validator.validateVazio(body.bairro) || Validator.validateVazio(body.rua) || Validator.validateVazio(body.numero)) {
-                return res.status(400).json({ message: "Algum campo está vazio!" })
-            }
+            if (Validator.validateVazio(body.senha)) {
+                if (Validator.validateVazio(body.nomeCompleto) || Validator.validateVazio(body.genero) || Validator.validateVazio(body.cidade) || Validator.validateVazio(body.bairro) || Validator.validateVazio(body.rua) || Validator.validateVazio(body.numero)) {
+                    return res.status(400).json({ message: "Algum campo está vazio!" })
+                }
 
-            if (!Validator.validateCPF(body.cpf)) {
-                return res.status(400).json({ message: "CPF inválido" })
-            }
+                if (!Validator.validateCPF(body.cpf)) {
+                    return res.status(400).json({ message: "CPF inválido" })
+                }
 
-            if (!Validator.validateEmail(body.email)) {
-                return res.status(400).json({ message: "EMAIL inválido" })
-            }
+                if (!Validator.validateEmail(body.email)) {
+                    return res.status(400).json({ message: "EMAIL inválido" })
+                }
 
-            if (!Validator.validatePhoneNumber(body.telefone)) {
-                return res.status(400).json({ message: "TELEFONE inválido" })
-            }
+                if (!Validator.validatePhoneNumber(body.telefone)) {
+                    return res.status(400).json({ message: "TELEFONE inválido" })
+                }
 
-            if (!Validator.validateData(body.dataNascimento)) {
-                return res.status(400).json({ message: "DATA DE NASCIMENTO inválido" })
+                if (!Validator.validateData(body.dataNascimento)) {
+                    return res.status(400).json({ message: "DATA DE NASCIMENTO inválido" })
+                }
             }
 
             if (body.senha) {
