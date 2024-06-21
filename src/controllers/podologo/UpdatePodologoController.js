@@ -27,7 +27,13 @@ export class UpdatePodologoController {
             if (!Validator.validateData(body.dataNascimento)) {
                 return res.status(400).json({ message: "DATA DE NASCIMENTO inválido" })
             }
-            
+
+            if (body.senha) {
+                const salt = 12;
+                const hashPassword = await bcrypt.hash(body.senha, salt);
+                body.senha = hashPassword;  // Atualiza o campo senha com o hash
+            }
+
             const podologoRepository = AppDataSource.getRepository(PodologoSchema)
             const result = await podologoRepository.update(id, { ...body })
 
