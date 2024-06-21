@@ -9,6 +9,14 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  PORT: 8080
+  DB_PORT: 3306
+  DB_USERNAME: 'carlosmiguel'
+  DB_PASSWORD: 'miguel053-'
+  DB_NAME: 'sistema_podologia'
+  DB_HOST: 'db-pi-senac.mysql.database.azure.com'
+
 jobs:
   build:
     runs-on: ubuntu-latest
