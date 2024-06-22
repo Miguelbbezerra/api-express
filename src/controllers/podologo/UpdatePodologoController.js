@@ -1,6 +1,7 @@
 import { AppDataSource } from "../../app-data-source.js";
 import { PodologoSchema } from "../../schema/podologo.js";
 import { Validator } from "../../validator/validator.js";
+import bcrypt from 'bcrypt'
 
 export class UpdatePodologoController {
     async update(req, res) {
@@ -8,7 +9,7 @@ export class UpdatePodologoController {
             const id = req.params?.id
             const body = req.body
 
-            if (!body.senha) {
+            if (Validator.validateVazio(body.senha)) {
                 if (Validator.validateVazio(body.nomeCompleto) || Validator.validateVazio(body.genero) || Validator.validateVazio(body.cidade) || Validator.validateVazio(body.bairro) || Validator.validateVazio(body.rua) || Validator.validateVazio(body.numero)) {
                     return res.status(400).json({ message: "Algum campo está vazio!" })
                 }
