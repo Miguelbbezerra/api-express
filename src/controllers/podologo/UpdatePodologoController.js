@@ -31,11 +31,11 @@ export class UpdatePodologoController {
                 }
             }
 
-            if (!Validator.validatePassword(body.senha)) {
-                return res.status(400).json({ message: "SENHA inválido" })
-            }
-
             if (body.senha) {
+                if (!Validator.validatePassword(body.senha)) {
+                    return res.status(400).json({ message: "SENHA inválido" })
+                }
+                
                 const salt = 12;
                 const hashPassword = await bcrypt.hash(body.senha, salt);
                 body.senha = hashPassword;  // Atualiza o campo senha com o hash
