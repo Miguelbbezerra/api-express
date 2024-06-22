@@ -32,7 +32,7 @@ export class UpdatePodologoController {
             }
 
             if (body.senha) {
-                if (!Validator.validatePassword(body.senha)) {
+                if (Validator.validatePassword(body.senha)) {
                     return res.status(400).json({ message: "SENHA inválido" })
                 }
                 
