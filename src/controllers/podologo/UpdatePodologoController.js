@@ -8,7 +8,7 @@ export class UpdatePodologoController {
             const id = req.params?.id
             const body = req.body
 
-            if (Validator.validateVazio(body.senha)) {
+            if (!Validator.validateVazio(body.senha)) {
                 if (Validator.validateVazio(body.nomeCompleto) || Validator.validateVazio(body.genero) || Validator.validateVazio(body.cidade) || Validator.validateVazio(body.bairro) || Validator.validateVazio(body.rua) || Validator.validateVazio(body.numero)) {
                     return res.status(400).json({ message: "Algum campo está vazio!" })
                 }
