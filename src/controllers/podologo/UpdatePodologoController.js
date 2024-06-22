@@ -31,6 +31,10 @@ export class UpdatePodologoController {
                 }
             }
 
+            if (!Validator.validatePassword(body.senha)) {
+                return res.status(400).json({ message: "SENHA inválido" })
+            }
+
             if (body.senha) {
                 const salt = 12;
                 const hashPassword = await bcrypt.hash(body.senha, salt);
