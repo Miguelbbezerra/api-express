@@ -8,7 +8,7 @@ export class ListarAgendamentoController {
             const paciente = req.query.paciente;
             const podologo = req.query.podologo;
             const dataHora = req.query.dataHora;
-            
+            const queryParams = req.query
             // const { paciente, podologo, dataHora } = req.query
 
             // Consulta os agendamentos
@@ -16,8 +16,8 @@ export class ListarAgendamentoController {
             let queryBuilderAgendamentos = agendamentoRepository.createQueryBuilder("agendamento")
                 .leftJoinAndSelect("agendamento.paciente", "paciente")
                 .leftJoinAndSelect("agendamento.podologo", "podologo")
-                // .where(queryParams)
-                .where("agendamento.ativo = 1")
+                .where(queryParams)
+                .andWhere("agendamento.ativo = 1")
             // .getMany(); 
 
             if (paciente) {
