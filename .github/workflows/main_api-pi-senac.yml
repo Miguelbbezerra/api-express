@@ -9,14 +9,6 @@ on:
       - main
   workflow_dispatch:
 
-env:
-  PORT: 8080
-  DB_PORT: 3306
-  DB_USERNAME: 'carlosmiguel'
-  DB_PASSWORD: 'miguel053-'
-  DB_NAME: 'sistema_podologia'
-  DB_HOST: 'db-pi-senac.mysql.database.azure.com'
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -39,7 +31,7 @@ jobs:
         run: zip release.zip ./* -r
 
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: node-app
           path: release.zip
@@ -55,7 +47,7 @@ jobs:
 
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: node-app
 
@@ -63,15 +55,15 @@ jobs:
         run: unzip release.zip
       
       - name: Login to Azure
-        uses: azure/login@v1
+        uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_48483BF94FBA4AC1985E5FC3116CF617 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9F7E1350A2724D36BB9CD692B223AE3F }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_B917EFB1ED6243558C8CA54FD911BAA3 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_FBAB37D34885415099CE1ED96E3A238E }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_C549B1257FDD458B9AB33346C4E56489 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_78D9BC730D6F486B9489466A28D7E5FF }}
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
+        uses: azure/webapps-deploy@v3
         with:
           app-name: 'api-pi-senac'
           slot-name: 'Production'
